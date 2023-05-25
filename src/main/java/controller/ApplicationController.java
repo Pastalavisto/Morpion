@@ -4,9 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import model.SceneController;
-import morpion.morpion.Application;
+import app.Application;
 
 import java.io.IOException;
 

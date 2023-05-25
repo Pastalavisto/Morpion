@@ -6,9 +6,8 @@ import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import model.GestionMorpions;
 import model.ImageSymbole;
-import model.Symbole;
 
-public class ChoixSymbole {
+public class ChoixSymboleController {
 
     @FXML
     void chooseImageInFile(ActionEvent event) {

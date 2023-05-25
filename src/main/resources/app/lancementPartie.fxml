@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="643.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LancementPartie">
+<AnchorPane prefHeight="643.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LancementPartieController">
    <children>
       <Button layoutX="250.0" layoutY="306.0" mnemonicParsing="false" onAction="#buttonLancementPartieClicked" text="Lancer la partie " />
       <Slider fx:id="sliderTaille" blockIncrement="1.0" layoutX="72.0" layoutY="192.0" max="10.0" min="1.0" onMouseDragged="#updateSliderTaille" />

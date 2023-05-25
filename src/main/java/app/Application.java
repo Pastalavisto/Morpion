@@ -1,4 +1,4 @@
-package morpion.morpion;
+package app;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

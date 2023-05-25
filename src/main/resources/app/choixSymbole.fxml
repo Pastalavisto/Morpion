@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="219.0" prefWidth="260.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChoixSymbole">
+<AnchorPane prefHeight="219.0" prefWidth="260.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChoixSymboleController">
    <children>
       <RadioButton layoutX="36.0" layoutY="83.0" mnemonicParsing="false" text="Texte Personnalisé" />
       <RadioButton layoutX="36.0" layoutY="58.0" mnemonicParsing="false" selected="true" text="Nom du joueur" />

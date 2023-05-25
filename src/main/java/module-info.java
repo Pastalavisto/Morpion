@@ -3,8 +3,10 @@ module morpion.morpion {
     requires javafx.fxml;
 
 
-    opens morpion.morpion to javafx.fxml;
-    exports morpion.morpion;
-    exports controller;
+    opens app to javafx.fxml;
+    exports app;
+
     opens controller to javafx.fxml;
+    exports controller;
+
 }
