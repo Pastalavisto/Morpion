@@ -17,17 +17,6 @@ import app.Application;
 import java.io.IOException;
 
 public class LancementPartieController {
-    @FXML
-    private Button imageButtonJoueur1;
-
-    @FXML
-    private Button imageButtonJoueur2;
-
-    @FXML
-    private TextField textFieldJoueur1;
-
-    @FXML
-    private TextField textFieldJoueur2;
 
     @FXML
     private Slider sliderTaille;
@@ -48,9 +37,16 @@ public class LancementPartieController {
     @FXML
     void buttonLancementPartieClicked(ActionEvent event) throws IOException {
         int taille = Integer.parseInt(labelTaille.getText());
+        for (int i = 0; i < hBoxJoueur.getChildren().size(); i++){
+            VBox vbox = (VBox) hBoxJoueur.getChildren().get(i);
+            TextField textField = (TextField) vbox.getChildren().get(0);
+            String nom = textField.getText();
+            GestionMorpions.getJoueur(i).setNom(nom);
+        }
         GestionMorpions.setTaille(taille);
         GestionMorpions.ajouterMorpion();
-        SceneController.addModalWindow(GestionMorpions.getLastMorpion().getGridPane(), Modality.WINDOW_MODAL);
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("morpion.fxml"));
+        SceneController.addModalWindow(fxmlLoader.load(), Modality.WINDOW_MODAL);
     }
 
     @FXML
@@ -65,15 +61,15 @@ public class LancementPartieController {
         int indexJoueur = Integer.parseInt(id.substring(id.indexOf("r") + 1));
         GestionMorpions.setIndexJoueurCourantModif(indexJoueur-1);
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("choixSymbole.fxml"));
-        SceneController.addModalWindow(fxmlLoader.load(), Modality.APPLICATION_MODAL);
+        SceneController.addModalWindow(fxmlLoader.load(), Modality.WINDOW_MODAL);
     }
 
     @FXML
     void updateJoueur(MouseEvent event) {
-        int acienNbrJoueur = Integer.parseInt(labelNbrJoueur.getText());
+        int ancienNbrJoueur = Integer.parseInt(labelNbrJoueur.getText());
         labelNbrJoueur.setText(String.valueOf((int) sliderJoueur.getValue()));
         int nouveauNbrJoueur = Integer.parseInt(labelNbrJoueur.getText());
-        if (nouveauNbrJoueur > acienNbrJoueur) {
+        if (nouveauNbrJoueur > ancienNbrJoueur) {
             GestionMorpions.ajouterJoueur();
             VBox vbox = new VBox();
             TextField textField = new TextField();
@@ -90,7 +86,7 @@ public class LancementPartieController {
             vbox.getChildren().add(textField);
             vbox.getChildren().add(button);
             hBoxJoueur.getChildren().add(vbox);
-        } else if (nouveauNbrJoueur < acienNbrJoueur) {
+        } else if (nouveauNbrJoueur < ancienNbrJoueur) {
             GestionMorpions.retirerJoueur();
             hBoxJoueur.getChildren().remove(hBoxJoueur.getChildren().size() - 1);
         }

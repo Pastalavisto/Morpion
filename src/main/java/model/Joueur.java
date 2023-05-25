@@ -4,7 +4,10 @@ public class Joueur {
     private String nom;
     private Symbole symbole;
 
+    private String texte;
+
     public Joueur(String nom, Symbole symbole) {
+        this.texte = "";
         this.nom = nom;
         this.symbole = symbole;
     }
@@ -15,6 +18,18 @@ public class Joueur {
 
     public Symbole getSymbole() {
         return symbole;
+    }
+
+    public void setTexte(String texte) {
+        this.texte = texte;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getTexte() {
+        return texte;
     }
 
     public void setSymbole(Symbole symbole) {

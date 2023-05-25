@@ -1,7 +1,10 @@
 package app;
 
+import controller.ChoixSymboleController;
+import controller.LancementPartieController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.GestionMorpions;
 import model.SceneController;
@@ -18,6 +21,7 @@ public class Application extends javafx.application.Application {
         stage.show();
         SceneController.setWindow(stage);
         GestionMorpions.init();
+        ChoixSymboleController.init();
     }
 
     public static void main(String[] args) {

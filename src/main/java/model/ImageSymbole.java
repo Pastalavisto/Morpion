@@ -11,11 +11,14 @@ public class ImageSymbole implements Symbole{
         this.image = new Image(path);
     }
 
+    public ImageSymbole(Image image) {
+        this.image = image;
+    }
     @Override
     public void setSymbole(Button button) {
         ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(80);
-        imageView.setFitWidth(80);
+        imageView.setFitHeight(Case.TAILLE_CASE-20);
+        imageView.setFitWidth(Case.TAILLE_CASE-20);
         button.setGraphic(imageView);
     }
 }

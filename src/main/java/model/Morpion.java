@@ -1,8 +1,8 @@
 package model;
 
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Morpion {
@@ -10,6 +10,7 @@ public class Morpion {
     private List<Joueur> joueurs;
     private int indexJoueurCourant;
 
+    Label nomJoueurLabel;
     private boolean estFini;
     private int taille;
     private GridPane gridPane;
@@ -33,7 +34,7 @@ public class Morpion {
         }
         return gridPane;
     }
-    private Joueur getJoueurCourant() {
+    public Joueur getJoueurCourant() {
         return joueurs.get(indexJoueurCourant);
     }
     public void jouer(int i, int j) {
@@ -54,6 +55,7 @@ public class Morpion {
         } else {
             indexJoueurCourant++;
         }
+        nomJoueurLabel.setText("Joueur : " + getJoueurCourant().getNom());
     }
     public void reset() {
         for(int i = 0; i < grille.length; i++) {
@@ -61,6 +63,17 @@ public class Morpion {
                 grille[i][j].reset();
             }
         }
+    }
+
+    public void setNomJoueurLabel(Label nomJoueurLabel) {
+        this.nomJoueurLabel = nomJoueurLabel;
+    }
+    public Case [][] getGrille() {
+        return grille;
+    }
+
+    public int getTaille() {
+        return taille;
     }
 
     public boolean estGagner() {

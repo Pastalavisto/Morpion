@@ -29,6 +29,11 @@ public class GestionMorpions {
         return joueurs.get(indexJoueurCourantModif);
     }
     public static void ajouterMorpion() {
+        for (Joueur joueur : joueurs) {
+            if (joueur.getSymbole() == null || joueur.getSymbole() instanceof NomSymbole) {
+                joueur.setSymbole(new NomSymbole(joueur.getNom()));
+            }
+        }
         morpions.add(new Morpion(joueurs, taille));
     }
 
@@ -44,4 +49,7 @@ public class GestionMorpions {
         joueurs.remove(joueurs.size()-1);
     }
 
+    public static Joueur getJoueur(int i) {
+        return joueurs.get(i);
+    }
 }

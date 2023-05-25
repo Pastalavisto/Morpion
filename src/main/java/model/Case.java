@@ -3,6 +3,7 @@ package model;
 import javafx.scene.control.Button;
 
 public class Case {
+    public static final int TAILLE_CASE = 100;
     private int x;
     private int y;
     private Joueur joueur;
@@ -42,7 +43,7 @@ public class Case {
 
     public Button getButton() {
         button = new Button();
-        button.setPrefSize(100, 100);
+        button.setPrefSize(TAILLE_CASE, TAILLE_CASE);
         button.setOnAction(event -> {
             morpion.jouer(x,y);
         });
