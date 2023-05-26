@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -32,5 +33,20 @@ public class MorpionController implements Initializable {
 
         borderPane.setCenter(gridPane);
         morpion.setNomJoueurLabel(nomJoueurLabel);
+    }
+
+    @FXML
+    void close(ActionEvent event) {
+
+    }
+
+    @FXML
+    void reset(ActionEvent event) {
+        morpion.reset();
+    }
+
+    @FXML
+    void rules(ActionEvent event) {
+
     }
 }

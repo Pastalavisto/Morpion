@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -52,7 +53,7 @@ public class ChoixSymboleController implements Initializable {
     }
 
     @FXML
-    void changeRadio(ActionEvent event) {
+    void changerRadio(ActionEvent event) {
         RadioButton radioButton = (RadioButton) event.getSource();
         if (radioButton == radioJoueur) {
             GestionMorpions.getJoueurCourant().setTexte("");
@@ -76,6 +77,15 @@ public class ChoixSymboleController implements Initializable {
     void changementTexte(KeyEvent event) {
         GestionMorpions.getJoueurCourant().setTexte(textePerso.getText());
         GestionMorpions.getJoueurCourant().setSymbole(new TextSymbole(textePerso.getText()));
+    }
+
+    @FXML
+    void changerColor(ActionEvent event) {
+        ColorPicker colorPicker = (ColorPicker) event.getSource();
+        if (GestionMorpions.getJoueurCourant().getSymbole() == null) {
+            GestionMorpions.getJoueurCourant().setSymbole(new NomSymbole(GestionMorpions.getJoueurCourant().getNom()));
+        }
+        GestionMorpions.getJoueurCourant().setCouleur(colorPicker.getValue());
     }
 
     private void ajouterImagePane(String path) {

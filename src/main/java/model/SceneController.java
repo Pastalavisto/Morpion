@@ -29,13 +29,4 @@ public class SceneController {
         stage.show();
     }
 
-    public static void addModalWindowUndecorated(Pane pane,Modality modality) {
-        Stage stage = new Stage();
-        stage.initModality(modality);
-        stage.setScene(new Scene(pane));
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.initOwner(window);
-        stage.show();
-
-    }
 }

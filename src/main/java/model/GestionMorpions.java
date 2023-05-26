@@ -13,6 +13,7 @@ public class GestionMorpions {
         morpions = new ArrayList<>();
         joueurs = new ArrayList<>();
         joueurs.add(new Joueur("Joueur 1", null));
+        joueurs.add(new Joueur("Joueur 2", null));
     }
     public static void setTaille(int taille) {
         GestionMorpions.taille = taille;
@@ -21,16 +22,16 @@ public class GestionMorpions {
     public static void setIndexJoueurCourantModif(int indexJoueurCourantModif) {
         GestionMorpions.indexJoueurCourantModif = indexJoueurCourantModif;
     }
-    public static void modifierSymboleJoueur(int indexJoueur, Symbole symbole) {
-        joueurs.get(indexJoueur).setSymbole(symbole);
-    }
 
     public static Joueur getJoueurCourant() {
         return joueurs.get(indexJoueurCourantModif);
     }
     public static void ajouterMorpion() {
         for (Joueur joueur : joueurs) {
-            if (joueur.getSymbole() == null || joueur.getSymbole() instanceof NomSymbole) {
+            if (joueur.getSymbole() == null) {
+                if (joueur.getSymbole() instanceof NomSymbole){
+
+                }
                 joueur.setSymbole(new NomSymbole(joueur.getNom()));
             }
         }

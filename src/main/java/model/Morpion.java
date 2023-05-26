@@ -55,7 +55,7 @@ public class Morpion {
         } else {
             indexJoueurCourant++;
         }
-        nomJoueurLabel.setText("Joueur : " + getJoueurCourant().getNom());
+        nomJoueurLabel.setText("C'est à " + getJoueurCourant().getNom() + " de jouer");
     }
     public void reset() {
         for(int i = 0; i < grille.length; i++) {

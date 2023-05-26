@@ -1,5 +1,7 @@
 package model;
 
+import javafx.scene.paint.Color;
+
 public class Joueur {
     private String nom;
     private Symbole symbole;
@@ -34,5 +36,9 @@ public class Joueur {
 
     public void setSymbole(Symbole symbole) {
         this.symbole = symbole;
+    }
+
+    public void setCouleur(Color value) {
+        this.symbole.setCouleur(value);
     }
 }
