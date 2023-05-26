@@ -28,6 +28,6 @@
             <FlowPane fx:id="flowPaneImage" hgap="1.0" prefWidth="486.0" vgap="1.0" />
          </content>
       </ScrollPane>
-      <Button layoutX="459.0" layoutY="360.0" mnemonicParsing="false" onAction="#fermer" style="-fx-background-color: lightgreen;" text="Valider" />
+      <Button layoutX="459.0" layoutY="360.0" mnemonicParsing="false" onAction="#valider" style="-fx-background-color: lightgreen;" text="Valider" />
    </children>
 </AnchorPane>

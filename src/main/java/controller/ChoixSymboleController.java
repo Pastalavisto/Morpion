@@ -141,7 +141,7 @@ public class ChoixSymboleController implements Initializable {
     }
 
     @FXML
-    void fermer(ActionEvent event) {
+    void valider(ActionEvent event) {
         Button button = (Button) event.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();

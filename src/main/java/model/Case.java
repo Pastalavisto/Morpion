@@ -37,9 +37,6 @@ public class Case {
         return joueur != null;
     }
 
-    void reset() {
-        joueur = null;
-    }
 
     public Button getButton() {
         button = new Button();

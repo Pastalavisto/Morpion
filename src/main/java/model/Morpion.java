@@ -10,11 +10,13 @@ public class Morpion {
     private List<Joueur> joueurs;
     private int indexJoueurCourant;
 
+    private int indexJoueurDepart;
     Label nomJoueurLabel;
     private boolean estFini;
     private int taille;
     private GridPane gridPane;
-    public Morpion(List<Joueur> joueurs, int taille) {
+    public Morpion(List<Joueur> joueurs, int taille, int indexJoueurDepart) {
+        this.indexJoueurDepart = indexJoueurDepart;
         this.taille = taille;
         this.joueurs = joueurs;
         this.grille = new Case[taille][taille];
@@ -60,9 +62,11 @@ public class Morpion {
     public void reset() {
         for(int i = 0; i < grille.length; i++) {
             for(int j = 0; j < grille[i].length; j++){
-                grille[i][j].reset();
+                grille[i][j] = new Case(i, j, this);
             }
         }
+        estFini = false;
+        indexJoueurCourant = indexJoueurDepart;
     }
 
     public void setNomJoueurLabel(Label nomJoueurLabel) {

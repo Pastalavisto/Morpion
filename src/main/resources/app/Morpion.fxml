@@ -17,13 +17,13 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
-                    <MenuItem mnemonicParsing="false" onMenuValidation="#reset" text="Réinitiliser" />
-                        <MenuItem mnemonicParsing="false" onAction="#close" text="Fermer" />
+                    <MenuItem fx:id="menuItemReset" mnemonicParsing="false" text="Réinitiliser" />
+                        <MenuItem fx:id="menuItemClose" mnemonicParsing="false" text="Fermer" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Aide">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#rules" text="Règles" />
+                    <MenuItem fx:id="menuItemRegles" mnemonicParsing="false" onAction="#rules" text="Règles" />
                   </items>
                 </Menu>
               </menus>

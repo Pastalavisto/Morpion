@@ -35,7 +35,7 @@ public class GestionMorpions {
                 joueur.setSymbole(new NomSymbole(joueur.getNom()));
             }
         }
-        morpions.add(new Morpion(joueurs, taille));
+        morpions.add(new Morpion(joueurs, taille,0));
     }
 
     public static Morpion getLastMorpion() {
