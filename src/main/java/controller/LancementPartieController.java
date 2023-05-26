@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.*;
 import app.Application;
 
@@ -61,7 +62,7 @@ public class LancementPartieController {
         int indexJoueur = Integer.parseInt(id.substring(id.indexOf("r") + 1));
         GestionMorpions.setIndexJoueurCourantModif(indexJoueur-1);
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("choixSymbole.fxml"));
-        SceneController.addModalWindow(fxmlLoader.load(), Modality.WINDOW_MODAL);
+        SceneController.addModalWindowUndecorated(fxmlLoader.load(), Modality.WINDOW_MODAL);
     }
 
     @FXML

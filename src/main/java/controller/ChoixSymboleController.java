@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import model.*;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -128,4 +129,12 @@ public class ChoixSymboleController implements Initializable {
             images.add(imageView);
         }
     }
+
+    @FXML
+    void fermer(ActionEvent event) {
+        Button button = (Button) event.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
+    }
+
 }

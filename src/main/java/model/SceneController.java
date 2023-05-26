@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
 import java.io.IOException;
@@ -26,5 +27,15 @@ public class SceneController {
         stage.initModality(modality);
         stage.setScene(new Scene(pane));
         stage.show();
+    }
+
+    public static void addModalWindowUndecorated(Pane pane,Modality modality) {
+        Stage stage = new Stage();
+        stage.initModality(modality);
+        stage.setScene(new Scene(pane));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.initOwner(window);
+        stage.show();
+
     }
 }
