@@ -26,16 +26,13 @@ public class GestionMorpions {
     public static Joueur getJoueurCourant() {
         return joueurs.get(indexJoueurCourantModif);
     }
-    public static void ajouterMorpion() {
+    public static int ajouterMorpion() {
         for (Joueur joueur : joueurs) {
-            if (joueur.getSymbole() == null) {
-                if (joueur.getSymbole() instanceof NomSymbole){
-
-                }
-                joueur.setSymbole(new NomSymbole(joueur.getNom()));
-            }
+            joueur.appliquerModel();
         }
-        morpions.add(new Morpion(joueurs, taille,0));
+        Morpion morpion = new Morpion(joueurs, taille,0);
+        morpions.add(morpion);
+        return morpions.size()-1;
     }
 
     public static Morpion getLastMorpion() {
@@ -47,7 +44,15 @@ public class GestionMorpions {
     }
 
     public static void retirerJoueur() {
-        joueurs.remove(joueurs.size()-1);
+        retirerJoueur(joueurs.size()-1);
+    }
+
+    public static void retirerJoueur(int index) {
+        joueurs.remove(index);
+    }
+
+    public static void retirerMorpion(Morpion morpion) {
+        morpions.remove(morpion);
     }
 
     public static Joueur getJoueur(int i) {

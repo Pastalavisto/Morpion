@@ -1,15 +1,10 @@
 package model;
 
-import app.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.Window;
-
-import java.io.IOException;
 
 public class SceneController {
     private static Window window;
@@ -22,11 +17,13 @@ public class SceneController {
         SceneController.window = window;
     }
 
-    public static void addModalWindow(Pane pane,Modality modality) {
+    public static Stage addModalWindow(Pane pane,Modality modality,String nom) {
         Stage stage = new Stage();
         stage.initModality(modality);
         stage.setScene(new Scene(pane));
+        stage.setTitle(nom);
         stage.show();
+        return stage;
     }
 
 }

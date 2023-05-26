@@ -13,7 +13,7 @@
 <AnchorPane prefHeight="404.0" prefWidth="527.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChoixSymboleController">
    <children>
       <RadioButton fx:id="radioPerso" layoutX="16.0" layoutY="92.0" mnemonicParsing="false" onAction="#changerRadio" text="Texte Personnalisé" />
-      <RadioButton fx:id="radioJoueur" layoutX="16.0" layoutY="62.0" mnemonicParsing="false" onAction="#changerRadio" selected="true" text="Nom du joueur" />
+      <RadioButton fx:id="radioJoueur" layoutX="16.0" layoutY="62.0" mnemonicParsing="false" onAction="#changerRadio" text="Nom du joueur" />
       <Button layoutX="16.0" layoutY="120.0" mnemonicParsing="false" onAction="#ajouterImagePane" text="Ajouter une image/gif" />
       <TextField fx:id="textePerso" disable="true" layoutX="140.0" layoutY="88.0" onKeyTyped="#changementTexte" prefHeight="25.0" prefWidth="163.0" />
       <Label layoutX="195.0" layoutY="14.0" text="Choix du symbole ">
@@ -21,7 +21,7 @@
             <Font name="System Bold Italic" size="25.0" />
          </font>
       </Label>
-      <ColorPicker layoutX="16.0" layoutY="176.0" onAction="#changerColor" />
+      <ColorPicker fx:id="colorPicker" layoutX="16.0" layoutY="176.0" onAction="#changerColor" />
       <Label layoutX="16.0" layoutY="158.0" text="Couleur du texte (pour Joueur et personnalisé) : " />
       <ScrollPane hbarPolicy="NEVER" layoutX="16.0" layoutY="225.0" prefHeight="135.0" prefWidth="498.0" AnchorPane.bottomAnchor="44.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="225.0">
          <content>
@@ -29,5 +29,7 @@
          </content>
       </ScrollPane>
       <Button layoutX="459.0" layoutY="360.0" mnemonicParsing="false" onAction="#valider" style="-fx-background-color: lightgreen;" text="Valider" />
+      <Button layoutX="384.0" layoutY="360.0" mnemonicParsing="false" onAction="#annuler" style="-fx-background-color: crimson;" text="Annuler" />
+      <Button layoutX="264.0" layoutY="360.0" mnemonicParsing="false" onAction="#reinitialiser" style="-fx-background-color: grey;" text="Remettre a zero" />
    </children>
 </AnchorPane>

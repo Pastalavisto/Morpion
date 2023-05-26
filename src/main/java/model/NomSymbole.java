@@ -6,26 +6,12 @@ import javafx.scene.paint.Color;
 public class NomSymbole implements Symbole{
     private String nom;
     Color couleur;
-    public NomSymbole(String text) {
+    public NomSymbole(String text, Color color) {
         this.nom = text;
-        this.couleur = Color.BLACK;
-        System.out.println("NomSymbole");
+        this.couleur = color;
     }
     @Override
     public void setSymbole(Button button) {
-        button.setText(nom);
-        button.setTextFill(couleur);
-    }
-
-    @Override
-    public void setCouleur(Color value) {
-        this.couleur = value;
-
-    }
-
-    @Override
-    public void setSymbole(Button button, String val) {
-        this.nom = val;
         button.setText(nom);
         button.setTextFill(couleur);
     }

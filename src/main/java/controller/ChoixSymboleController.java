@@ -35,7 +35,12 @@ public class ChoixSymboleController implements Initializable {
     @FXML
     private TextField textePerso;
 
+    @FXML
+    private ColorPicker colorPicker;
     private static List<ImageView> images;
+
+    private ChoixSymbole model;
+    private ChoixSymbole ancienModel;
 
     @FXML
     void ajouterImagePane(ActionEvent event) {
@@ -56,36 +61,34 @@ public class ChoixSymboleController implements Initializable {
     void changerRadio(ActionEvent event) {
         RadioButton radioButton = (RadioButton) event.getSource();
         if (radioButton == radioJoueur) {
-            GestionMorpions.getJoueurCourant().setTexte("");
+            model.setRadioBouton("radioJoueur");
             textePerso.setDisable(true);
             radioJoueur.setSelected(true);
             radioPerso.setSelected(false);
-            GestionMorpions.getJoueurCourant().setSymbole(new NomSymbole(GestionMorpions.getJoueurCourant().getNom()));
-        } else {
+        } else if (radioButton == radioPerso) {
+            model.setRadioBouton("radioPerso");
             textePerso.setDisable(false);
-            GestionMorpions.getJoueurCourant().setTexte(textePerso.getText());
-            GestionMorpions.getJoueurCourant().setSymbole(new TextSymbole(textePerso.getText()));
             radioJoueur.setSelected(false);
             radioPerso.setSelected(true);
+        } else {
+            model.setRadioBouton("radioImage");
+            textePerso.setDisable(true);
+            radioJoueur.setSelected(false);
+            radioPerso.setSelected(false);
         }
-        for (int i = 0; i < flowPaneImage.getChildren().size(); i++) {
-            flowPaneImage.getChildren().get(i).setStyle("-fx-border-color: transparent");
-        }
+        flowPaneImage.getChildren().get(model.getIndexImage()).setStyle("-fx-border-color: transparent");
+
     }
 
     @FXML
     void changementTexte(KeyEvent event) {
-        GestionMorpions.getJoueurCourant().setTexte(textePerso.getText());
-        GestionMorpions.getJoueurCourant().setSymbole(new TextSymbole(textePerso.getText()));
+        model.setTextePerso(textePerso.getText());
     }
 
     @FXML
     void changerColor(ActionEvent event) {
         ColorPicker colorPicker = (ColorPicker) event.getSource();
-        if (GestionMorpions.getJoueurCourant().getSymbole() == null) {
-            GestionMorpions.getJoueurCourant().setSymbole(new NomSymbole(GestionMorpions.getJoueurCourant().getNom()));
-        }
-        GestionMorpions.getJoueurCourant().setCouleur(colorPicker.getValue());
+        model.setColor(colorPicker.getValue());
     }
 
     private void ajouterImagePane(String path) {
@@ -104,19 +107,22 @@ public class ChoixSymboleController implements Initializable {
         file.renameTo(new File(folder, file.getName()));
     }
     private void selectImagePane(Button button) {
-        for (int i = 0; i < flowPaneImage.getChildren().size(); i++) {
-            flowPaneImage.getChildren().get(i).setStyle("-fx-border-color: transparent");
-        }
+        model.setRadioBouton("radioImage");
+        flowPaneImage.getChildren().get(model.getIndexImage()).setStyle("-fx-border-color: transparent");
         button.setStyle("-fx-border-color: red");
         ImageView imageView =(ImageView) button.getGraphic();
-        GestionMorpions.getJoueurCourant().setSymbole(new ImageSymbole(imageView.getImage()));
+        model.setIndexImage(images.indexOf(imageView));
         radioPerso.setSelected(false);
         radioJoueur.setSelected(false);
     }
 
+    public static Image getImage(int index){
+        return images.get(index).getImage();
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        textePerso.setText(GestionMorpions.getJoueurCourant().getTexte());
+        model = GestionMorpions.getJoueurCourant().getModel();
+        ancienModel = new ChoixSymbole(model);
         for (ImageView imageView : images) {
             Button button = new Button();
             button.setPrefSize(Case.TAILLE_CASE, Case.TAILLE_CASE);
@@ -125,6 +131,18 @@ public class ChoixSymboleController implements Initializable {
             flowPaneImage.getChildren().add(button);
             button.setStyle("-fx-border-color: transparent");
         }
+        if (model.getRadioBouton().equals("radioJoueur")){
+            radioJoueur.setSelected(true);
+        }else if (model.getRadioBouton().equals("radioPerso")){
+            radioPerso.setSelected(true);
+            textePerso.setDisable(false);
+        }else {
+            radioJoueur.setSelected(false);
+            radioPerso.setSelected(false);
+            flowPaneImage.getChildren().get(model.getIndexImage()).setStyle("-fx-border-color: red");
+        }
+        textePerso.setText(model.getTextePerso());
+        colorPicker.setValue(model.getColor());
     }
 
     public static void init(){
@@ -147,4 +165,30 @@ public class ChoixSymboleController implements Initializable {
         stage.close();
     }
 
+    @FXML
+    void annuler(ActionEvent event) {
+        Button button = (Button) event.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        ancienModel.copyTo(model);
+        stage.close();
+    }
+
+    @FXML
+    void reinitialiser(ActionEvent event) {
+        int index = model.getIndexImage();
+        model.annuler();
+        if (model.getRadioBouton().equals("radioJoueur")){
+            flowPaneImage.getChildren().get(index).setStyle("-fx-border-color: transparent");
+            radioJoueur.setSelected(true);
+        }else if (model.getRadioBouton().equals("radioPerso")){
+            flowPaneImage.getChildren().get(index).setStyle("-fx-border-color: transparent");
+            radioPerso.setSelected(true);
+            textePerso.setDisable(false);
+        }else {
+            radioJoueur.setSelected(false);
+            radioPerso.setSelected(false);
+        }
+        textePerso.setText(model.getTextePerso());
+        colorPicker.setValue(model.getColor());
+    }
 }

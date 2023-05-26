@@ -12,7 +12,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.GestionMorpions;
+import model.Morpion;
 import model.SceneController;
 
 import java.io.IOException;
@@ -45,9 +47,13 @@ public class LancementPartieController {
             GestionMorpions.getJoueur(i).setNom(nom);
         }
         GestionMorpions.setTaille(taille);
-        GestionMorpions.ajouterMorpion();
+        int index = GestionMorpions.ajouterMorpion();
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("morpion.fxml"));
-        SceneController.addModalWindow(fxmlLoader.load(), Modality.WINDOW_MODAL);
+        Stage stage = SceneController.addModalWindow(fxmlLoader.load(), Modality.WINDOW_MODAL, "Morpion numéro " + (index+1));
+        Morpion morpion = GestionMorpions.getLastMorpion();
+        stage.setOnCloseRequest(event1 -> {
+            GestionMorpions.retirerMorpion(morpion);
+        });
     }
 
     @FXML
@@ -62,7 +68,7 @@ public class LancementPartieController {
         int indexJoueur = Integer.parseInt(id.substring(id.indexOf("r") + 1));
         GestionMorpions.setIndexJoueurCourantModif(indexJoueur - 1);
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("choixSymbole.fxml"));
-        SceneController.addModalWindow(fxmlLoader.load(), Modality.WINDOW_MODAL);
+        SceneController.addModalWindow(fxmlLoader.load(), Modality.APPLICATION_MODAL, "Choix du symbole");
     }
 
     @FXML
@@ -95,5 +101,7 @@ public class LancementPartieController {
         }
 
     }
+
+
 
 }

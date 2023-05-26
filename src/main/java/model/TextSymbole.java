@@ -7,9 +7,9 @@ public class TextSymbole implements Symbole{
     private String text;
     Color couleur;
 
-    public TextSymbole(String text) {
+    public TextSymbole(String text, Color color) {
         this.text = text;
-        this.couleur = Color.BLACK;
+        this.couleur = color;
     }
     @Override
     public void setSymbole(Button button) {
@@ -17,15 +17,4 @@ public class TextSymbole implements Symbole{
         button.setTextFill(couleur);
     }
 
-    @Override
-    public void setCouleur(Color value) {
-        this.couleur = value;
-    }
-
-    @Override
-    public void setSymbole(Button button, String val) {
-        this.text = val;
-        button.setText(text);
-        button.setTextFill(couleur);
-    }
 }

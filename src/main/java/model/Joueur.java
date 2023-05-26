@@ -5,13 +5,15 @@ import javafx.scene.paint.Color;
 public class Joueur {
     private String nom;
     private Symbole symbole;
-
-    private String texte;
-
+    private ChoixSymbole model;
     public Joueur(String nom, Symbole symbole) {
-        this.texte = "";
         this.nom = nom;
         this.symbole = symbole;
+        model = new ChoixSymbole();
+    }
+
+    public ChoixSymbole getModel() {
+        return model;
     }
 
     public String getNom() {
@@ -22,23 +24,18 @@ public class Joueur {
         return symbole;
     }
 
-    public void setTexte(String texte) {
-        this.texte = texte;
-    }
-
     public void setNom(String nom) {
         this.nom = nom;
     }
 
-    public String getTexte() {
-        return texte;
-    }
 
-    public void setSymbole(Symbole symbole) {
-        this.symbole = symbole;
-    }
-
-    public void setCouleur(Color value) {
-        this.symbole.setCouleur(value);
+    public void appliquerModel() {
+        if (model.getRadioBouton().equals("radioJoueur")) {
+            symbole = new NomSymbole(nom, model.getColor());
+        } else if (model.getRadioBouton().equals("radioPerso")) {
+            symbole = new TextSymbole(model.getTextePerso(), model.getColor());
+        } else {
+            symbole = new ImageSymbole(model.getImage());
+        }
     }
 }
