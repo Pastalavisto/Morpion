@@ -1,4 +1,4 @@
-package controller;
+package controllers;
 
 import app.Application;
 import javafx.event.ActionEvent;
@@ -8,12 +8,14 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.ParametresPartie;
-import model.Morpion;
-import model.SceneController;
+import models.Morpion;
+import models.ParametresPartie;
+import models.SceneController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,7 +44,7 @@ public class MorpionController implements Initializable {
     private Label labelResultat;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle){
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         model = ParametresPartie.getLastMorpion();
         model.setMorpionController(this);
         model.setFlowPaneJoueur(flowPaneJoueur);
@@ -72,7 +74,7 @@ public class MorpionController implements Initializable {
         close();
     }
 
-    public void close(){
+    public void close() {
         Stage stage = (Stage) borderPane.getScene().getWindow();
         ParametresPartie.retirerMorpion(model);
         stage.close();
@@ -93,8 +95,8 @@ public class MorpionController implements Initializable {
 
     @FXML
     void rules(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("regles.fxml"));
-        SceneController.addModalWindow(fxmlLoader.load(), Modality.APPLICATION_MODAL , "Règles du jeu");
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/view/Regles.fxml"));
+        SceneController.addModalWindow(fxmlLoader.load(), Modality.APPLICATION_MODAL, "Règles du jeu");
 
     }
 }

@@ -1,20 +1,21 @@
-package model;
+package models;
 
-import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
-import javafx.stage.Screen;
 
 import java.io.IOException;
 
 public class Case {
-    public static int TAILLE_CASE = (int)Screen.getPrimary().getBounds().getHeight() / 10;
-    private Coord coord;
+    public int taille;
+    private final Coord coord;
     private Joueur joueur;
-    private Morpion morpion;
+    private final Morpion morpion;
     private Button button;
+
     public Case(int x, int y, Morpion morpion) {
         coord = new Coord(x, y);
         this.morpion = morpion;
+        taille = morpion.getTailleCase();
+
     }
 
     int getX() {
@@ -25,17 +26,13 @@ public class Case {
         return coord.getY();
     }
 
-    public static void setTailleCase(int tailleCase) {
-        TAILLE_CASE = tailleCase;
-    }
-
     Joueur getJoueur() {
         return joueur;
     }
 
     void cocherCase(Joueur joueur) {
         this.joueur = joueur;
-        getJoueur().getSymbole().setSymbole(button);
+        getJoueur().getSymbole().setSymbole(button, taille);
     }
 
     boolean estCocher() {
@@ -45,7 +42,7 @@ public class Case {
 
     public Button getButton() {
         button = new Button();
-        button.setPrefSize(TAILLE_CASE, TAILLE_CASE);
+        button.setPrefSize(taille, taille);
         button.setOnAction(event -> {
             try {
                 morpion.jouer(coord);

@@ -1,7 +1,7 @@
-package model;
+package models;
 
 import app.Application;
-import controller.MorpionController;
+import controllers.MorpionController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -9,60 +9,60 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.List;
 
 public class Morpion {
-    private Case[][] grille;
-    private List<Joueur> joueurs;
-    private int indexJoueurCourant;
-
-    private int indexJoueurDepart;
-
-    private boolean aleatoire;
-    private Label labelResultat;
     FlowPane flowPaneJoueur;
+    private final Case[][] grille;
+    private final List<Joueur> joueurs;
+    private int indexJoueurCourant;
+    private int indexJoueurDepart;
+    private final boolean aleatoire;
+    private Label labelResultat;
     private boolean estFini;
-    private int taille;
+    private final int taille;
     private GridPane gridPane;
 
+    private int tailleCase;
     private MorpionController morpionController;
 
     private FinDePartie finDePartie;
-    public Morpion(List<Joueur> joueurs, int taille, int indexJoueurDepart, boolean aleatoire) {
-        finDePartie = new FinDePartie(this);
+
+    public Morpion(List<Joueur> joueurs, int taille, int indexJoueurDepart, boolean aleatoire, int tailleCase) {
+        this.tailleCase = tailleCase;
         this.aleatoire = aleatoire;
         this.indexJoueurDepart = indexJoueurDepart;
         indexJoueurCourant = indexJoueurDepart;
         this.taille = taille;
         this.joueurs = joueurs;
         this.grille = new Case[taille][taille];
-        for(int i = 0; i < taille; i++) {
-            for(int j = 0; j < taille; j++){
+        for (int i = 0; i < taille; i++) {
+            for (int j = 0; j < taille; j++) {
                 this.grille[i][j] = new Case(i, j, this);
+
             }
         }
-    }
-
-    public void setMorpionController(MorpionController morpionController) {
-        this.morpionController = morpionController;
     }
 
     public MorpionController getMorpionController() {
         return morpionController;
     }
 
-    public void setFlowPaneJoueur (FlowPane flowPaneJoueur) {
+    public void setMorpionController(MorpionController morpionController) {
+        this.morpionController = morpionController;
+    }
+
+    public void setFlowPaneJoueur(FlowPane flowPaneJoueur) {
         this.flowPaneJoueur = flowPaneJoueur;
         int index = 0;
-        for(Joueur joueur : joueurs) {
+        for (Joueur joueur : joueurs) {
             VBox vBox = new VBox();
             vBox.getChildren().add(new Label(joueur.getNom()));
-            vBox.getChildren().add(new Label(""+joueur.getScore()));
+            vBox.getChildren().add(new Label(String.valueOf(joueur.getScore())));
             flowPaneJoueur.getChildren().add(vBox);
-            if(index == indexJoueurCourant) {
+            if (index == indexJoueurCourant) {
                 vBox.getChildren().get(0).setStyle("-fx-background-color: #00ff00");
             }
             index++;
@@ -73,28 +73,33 @@ public class Morpion {
     public FinDePartie getFinDePartie() {
         return finDePartie;
     }
+
     public void setLabelResultat(Label labelResultat) {
         this.labelResultat = labelResultat;
     }
+
     public GridPane getGridPane() {
         gridPane = new GridPane();
-        for(int i = 0; i < grille.length; i++) {
-            for(int j = 0; j < grille[i].length; j++){
+        for (int i = 0; i < grille.length; i++) {
+            for (int j = 0; j < grille[i].length; j++) {
                 gridPane.add(grille[i][j].getButton(), i, j);
             }
         }
         return gridPane;
     }
+
     public Joueur getJoueurCourant() {
         return joueurs.get(indexJoueurCourant);
     }
+
     public void jouer(Coord coord) throws IOException {
-        if(!this.grille[coord.getX()][coord.getY()].estCocher() && !estFini && !egalite()) {
+        if (!this.grille[coord.getX()][coord.getY()].estCocher() && !estFini && !egalite()) {
             this.grille[coord.getX()][coord.getY()].cocherCase(getJoueurCourant());
-            if (!estGagner() && !egalite()){
+            if (!estGagner() && !egalite()) {
                 changerJoueur();
-            }else{
-                FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("finDePartie.fxml"));
+            } else {
+                finDePartie = new FinDePartie(this);
+                FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/view/FinDePartie.fxml"));
                 Stage stage = SceneController.addModalWindow(fxmlLoader.load(), Modality.APPLICATION_MODAL, "Fin de partie");
                 stage.setResizable(false);
             }
@@ -109,10 +114,11 @@ public class Morpion {
             this.jouer(((Bot) getJoueurCourant()).jouer(getGrille()));
         }
     }
+
     private void changerJoueur() throws IOException {
         VBox vBox = (VBox) flowPaneJoueur.getChildren().get(indexJoueurCourant);
         vBox.getChildren().get(0).setStyle("-fx-background-color: #ffffff");
-        if (indexJoueurCourant +1 == joueurs.size()) {
+        if (indexJoueurCourant + 1 == joueurs.size()) {
             indexJoueurCourant = 0;
         } else {
             indexJoueurCourant++;
@@ -123,21 +129,21 @@ public class Morpion {
         vBox = (VBox) flowPaneJoueur.getChildren().get(indexJoueurCourant);
         vBox.getChildren().get(0).setStyle("-fx-background-color: #00ff00");
     }
+
     public void reset() {
-        for(int i = 0; i < grille.length; i++) {
-            for(int j = 0; j < grille[i].length; j++){
+        for (int i = 0; i < grille.length; i++) {
+            for (int j = 0; j < grille[i].length; j++) {
                 grille[i][j] = new Case(i, j, this);
-                System.out.println(grille[i][j]);
             }
         }
-        VBox vbox =(VBox) flowPaneJoueur.getChildren().get(indexJoueurCourant);
+        VBox vbox = (VBox) flowPaneJoueur.getChildren().get(indexJoueurCourant);
         vbox.getChildren().get(0).setStyle("-fx-background-color: #ffffff");
         estFini = false;
         if (aleatoire) {
             indexJoueurDepart = (int) (Math.random() * joueurs.size());
         }
         indexJoueurCourant = indexJoueurDepart;
-        vbox =(VBox) flowPaneJoueur.getChildren().get(indexJoueurCourant);
+        vbox = (VBox) flowPaneJoueur.getChildren().get(indexJoueurCourant);
         vbox.getChildren().get(0).setStyle("-fx-background-color: #00ff00");
         labelResultat.setText("");
 
@@ -147,20 +153,20 @@ public class Morpion {
         return joueurs;
     }
 
-    public Case [][] getGrille() {
+    public Case[][] getGrille() {
         return grille;
     }
 
     public boolean egalite() {
         boolean egalite = true;
-        for (int i = 0; i<taille;i++){
-            for (int j = 0; j<taille;j++){
-                if (!grille[i][j].estCocher()){
+        for (int i = 0; i < taille; i++) {
+            for (int j = 0; j < taille; j++) {
+                if (!grille[i][j].estCocher()) {
                     egalite = false;
                 }
             }
         }
-        if (egalite && !estFini){
+        if (egalite && !estFini) {
             estFini = true;
             griser();
             labelResultat.setText("Egalité");
@@ -170,27 +176,28 @@ public class Morpion {
 
     public boolean estGagner() {
         boolean res = estGagnerLigne() || estGagnerColonne() || estGagnerDiagonale() || estGagnerDiagonaleInverse();
-        if (res){
+        if (res) {
             getJoueurCourant().setScore(getJoueurCourant().getScore() + 1);
             VBox vBox = (VBox) flowPaneJoueur.getChildren().get(indexJoueurCourant);
             Label label = (Label) vBox.getChildren().get(1);
-            label.setText(""+getJoueurCourant().getScore());
+            label.setText(String.valueOf(getJoueurCourant().getScore()));
             estFini = true;
             griser();
             labelResultat.setText(getJoueurCourant().getNom() + " a gagné");
         }
         return res;
     }
+
     private boolean estGagnerDiagonaleInverse() {
         boolean estGagner = true;
-        for (int i = taille -1; i>0;i--){
-            if (!grille[i][taille-i-1].estCocher() || grille[i][taille-i-1].getJoueur() != grille[i-1][taille-i].getJoueur()){
+        for (int i = taille - 1; i > 0; i--) {
+            if (!grille[i][taille - i - 1].estCocher() || grille[i][taille - i - 1].getJoueur() != grille[i - 1][taille - i].getJoueur()) {
                 estGagner = false;
             }
         }
-        if (estGagner){
-            for (int i = taille -1; i>=0;i--){
-                grille[i][taille-i-1].surbrillance();
+        if (estGagner) {
+            for (int i = taille - 1; i >= 0; i--) {
+                grille[i][taille - i - 1].surbrillance();
             }
         }
         return estGagner;
@@ -198,13 +205,13 @@ public class Morpion {
 
     private boolean estGagnerDiagonale() {
         boolean estGagner = true;
-        for (int i = 1; i<taille;i++){
-            if (!grille[i][i].estCocher() || grille[i][i].getJoueur() != grille[i-1][i-1].getJoueur()){
+        for (int i = 1; i < taille; i++) {
+            if (!grille[i][i].estCocher() || grille[i][i].getJoueur() != grille[i - 1][i - 1].getJoueur()) {
                 estGagner = false;
             }
         }
-        if (estGagner){
-            for (int i = 0; i<taille;i++){
+        if (estGagner) {
+            for (int i = 0; i < taille; i++) {
                 grille[i][i].surbrillance();
             }
         }
@@ -213,16 +220,16 @@ public class Morpion {
 
     private boolean estGagnerColonne() {
         boolean estGagner = false;
-        for (int i = 0; i<taille;i++){
+        for (int i = 0; i < taille; i++) {
             boolean colonneGagnee = true;
-            for (int j = 1; j<taille;j++){
-                if (!grille[i][j].estCocher() || grille[i][j].getJoueur() != grille[i][j-1].getJoueur()){
+            for (int j = 1; j < taille; j++) {
+                if (!grille[i][j].estCocher() || grille[i][j].getJoueur() != grille[i][j - 1].getJoueur()) {
                     colonneGagnee = false;
                 }
             }
-            if (colonneGagnee){
+            if (colonneGagnee) {
                 estGagner = true;
-                for (int j = 0; j<taille;j++){
+                for (int j = 0; j < taille; j++) {
                     grille[i][j].surbrillance();
                 }
             }
@@ -230,9 +237,9 @@ public class Morpion {
         return estGagner;
     }
 
-    public void griser(){
-        for (int i = 0; i<taille;i++){
-            for (int j = 0; j<taille;j++){
+    public void griser() {
+        for (int i = 0; i < taille; i++) {
+            for (int j = 0; j < taille; j++) {
                 grille[i][j].griser();
             }
         }
@@ -240,16 +247,16 @@ public class Morpion {
 
     private boolean estGagnerLigne() {
         boolean estGagner = false;
-        for (int i = 0; i<taille;i++){
+        for (int i = 0; i < taille; i++) {
             boolean ligneGagnee = true;
-            for (int j = 1; j<taille;j++){
-                if (!grille[j][i].estCocher() || grille[j][i].getJoueur() != grille[j-1][i].getJoueur()){
+            for (int j = 1; j < taille; j++) {
+                if (!grille[j][i].estCocher() || grille[j][i].getJoueur() != grille[j - 1][i].getJoueur()) {
                     ligneGagnee = false;
                 }
             }
-            if (ligneGagnee){
+            if (ligneGagnee) {
                 estGagner = true;
-                for (int j = 0; j<taille;j++){
+                for (int j = 0; j < taille; j++) {
                     grille[j][i].surbrillance();
                 }
             }
@@ -258,7 +265,7 @@ public class Morpion {
     }
 
     public void appliquerModif() {
-        for (Joueur joueur : joueurs){
+        for (Joueur joueur : joueurs) {
             joueur.appliquerModel();
         }
     }
@@ -268,5 +275,13 @@ public class Morpion {
         VBox vBox = (VBox) flowPaneJoueur.getChildren().get(i);
         Label label = (Label) vBox.getChildren().get(0);
         label.setText(nom);
+    }
+
+    public int getTailleCase() {
+        return tailleCase;
+    }
+
+    public void setTailleCase(int tailleCase) {
+        this.tailleCase = tailleCase;
     }
 }

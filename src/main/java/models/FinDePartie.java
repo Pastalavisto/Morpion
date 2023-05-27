@@ -1,6 +1,6 @@
-package model;
+package models;
 
-import controller.FinDePartieController;
+import controllers.FinDePartieController;
 
 import java.io.IOException;
 import java.util.List;

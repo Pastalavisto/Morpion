@@ -1,4 +1,4 @@
-package controller;
+package controllers;
 
 import app.Application;
 import javafx.event.ActionEvent;
@@ -12,10 +12,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.FinDePartie;
-import model.Joueur;
-import model.ParametresPartie;
-import model.SceneController;
+import models.FinDePartie;
+import models.Joueur;
+import models.ParametresPartie;
+import models.SceneController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,10 +24,13 @@ import java.util.ResourceBundle;
 
 public class FinDePartieController implements Initializable {
 
+    private static FinDePartie model;
     @FXML
     private FlowPane flowPaneJoueur;
 
-    private static FinDePartie model;
+    public static void setModel(FinDePartie model) {
+        FinDePartieController.model = model;
+    }
 
     @FXML
     void close(ActionEvent event) {
@@ -36,9 +39,6 @@ public class FinDePartieController implements Initializable {
         model.close();
     }
 
-    public static void setModel(FinDePartie model) {
-        FinDePartieController.model = model;
-    }
     @FXML
     void rejouer(ActionEvent event) throws IOException {
         Stage stage = (Stage) flowPaneJoueur.getScene().getWindow();
@@ -64,12 +64,12 @@ public class FinDePartieController implements Initializable {
             TextField textField = new TextField(joueur.getNom());
             vBox.getChildren().add(textField);
 
-            vBox.getChildren().add(new Label(""+joueur.getScore()));
+            vBox.getChildren().add(new Label(String.valueOf(joueur.getScore())));
             Button choixSymbole = new Button();
             choixSymbole.setText("Choix du symbole");
             choixSymbole.setOnAction(event -> {
                 ParametresPartie.setJoueurCourant(joueur);
-                FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("choixSymbole.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/view/ChoixSymbole.fxml"));
                 try {
                     Stage stage = SceneController.addModalWindow(fxmlLoader.load(), Modality.APPLICATION_MODAL, "Choix du symbole");
                 } catch (IOException e) {

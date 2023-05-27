@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="404.0" prefWidth="527.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChoixSymboleController">
+<AnchorPane prefHeight="404.0" prefWidth="527.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChoixSymboleController">
    <children>
       <RadioButton fx:id="radioPerso" layoutX="16.0" layoutY="92.0" mnemonicParsing="false" onAction="#changerRadio" text="Texte Personnalisé" />
       <RadioButton fx:id="radioJoueur" layoutX="16.0" layoutY="62.0" mnemonicParsing="false" onAction="#changerRadio" text="Nom du joueur" />

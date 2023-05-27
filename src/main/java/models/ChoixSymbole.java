@@ -1,8 +1,7 @@
-package model;
+package models;
 
-import controller.ChoixSymboleController;
+import controllers.ChoixSymboleController;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 public class ChoixSymbole {
@@ -33,7 +32,6 @@ public class ChoixSymbole {
 
     public void setRadioBouton(String radioBouton) {
         this.radioBouton = radioBouton;
-        System.out.println(radioBouton);
     }
 
     public String getTextePerso() {

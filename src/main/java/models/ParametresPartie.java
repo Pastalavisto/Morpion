@@ -1,4 +1,6 @@
-package model;
+package models;
+
+import controllers.ParametresController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +17,18 @@ public class ParametresPartie {
 
     private static ParametresPartie instance;
 
+    private ParametresController parametresController;
+
     public static void init() {
         morpions = new ArrayList<>();
+    }
+
+    public static ParametresPartie getInstance(ParametresController parametresController) {
+        if(instance == null) {
+            instance = new ParametresPartie();
+        }
+        instance.parametresController = parametresController;
+        return instance;
     }
 
     public static ParametresPartie getInstance() {
@@ -44,7 +56,7 @@ public class ParametresPartie {
     public Joueur getJoueurCourant() {
         return joueurCourant;
     }
-    public int ajouterMorpion() {
+    public int ajouterMorpion(int tailleCase) {
         for (Joueur joueur : joueurs) {
             joueur.appliquerModel();
             if (joueur.IsBot()){
@@ -65,14 +77,14 @@ public class ParametresPartie {
         if (indexPremierJoueurAlea){
             indexPremierJoueur = (int) (Math.random() * joueurs.size());
         }
-        Morpion morpion = new Morpion(joueurs, taille,getIndexPremierJoueur(),indexPremierJoueurAlea);
+        Morpion morpion = new Morpion(new ArrayList<>(joueurs), taille,getIndexPremierJoueur(),indexPremierJoueurAlea,tailleCase);
         morpions.add(morpion);
         return morpions.size()-1;
     }
     public ParametresPartie() {
         joueurs = new ArrayList<>();
-        joueurs.add(new Joueur("Joueur 1", null));
-        joueurs.add(new Joueur("Joueur 2", null));
+        ajouterJoueur();
+        ajouterJoueur();
     }
 
     public static Morpion getLastMorpion() {
@@ -108,4 +120,12 @@ public class ParametresPartie {
         return joueurs.get(i);
     }
 
+    public void reset() {
+        ArrayList<Joueur> temp = new ArrayList<>();
+        for (int i = 0; i < joueurs.size(); i++) {
+            temp.add(new Joueur("Joueur " + (i+1), null));
+        }
+        joueurs = temp;
+        parametresController.reset();
+    }
 }

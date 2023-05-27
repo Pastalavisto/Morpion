@@ -1,6 +1,6 @@
-package model;
+package models;
 
-public abstract class Bot extends Joueur{
+public abstract class Bot extends Joueur {
     public Bot(String nom, Symbole symbole) {
         super(nom, symbole);
     }

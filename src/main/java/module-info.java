@@ -6,7 +6,10 @@ module morpion.morpion {
     opens app to javafx.fxml;
     exports app;
 
-    opens controller to javafx.fxml;
-    exports controller;
+    opens controllers to javafx.fxml;
+    exports controllers;
+
+    opens models to javafx.fxml;
+    exports models;
 
 }

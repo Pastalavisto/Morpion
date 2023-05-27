@@ -1,18 +1,22 @@
 package app;
 
-import controller.ChoixSymboleController;
+import controllers.ChoixSymboleController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.ParametresPartie;
-import model.SceneController;
+import models.ParametresPartie;
+import models.SceneController;
 
 import java.io.IOException;
 
 public class Application extends javafx.application.Application {
+    public static void main(String[] args) {
+        launch();
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("parametres.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/view/Parametres.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Lancement de la partie");
         stage.setScene(scene);
@@ -21,9 +25,5 @@ public class Application extends javafx.application.Application {
         SceneController.setWindow(stage);
         ParametresPartie.init();
         ChoixSymboleController.init();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 }

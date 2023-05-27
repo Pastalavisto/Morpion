@@ -1,14 +1,14 @@
-package model;
+package models;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
 public class SceneController {
     private static Window window;
+
     public static void changeScene(Scene scene, String nom) {
         Stage stage = (Stage) window;
         stage.setScene(scene);
@@ -19,7 +19,7 @@ public class SceneController {
         SceneController.window = window;
     }
 
-    public static Stage addModalWindow(Pane pane,Modality modality,String nom) {
+    public static Stage addModalWindow(Pane pane, Modality modality, String nom) {
         Stage stage = new Stage();
         stage.initModality(modality);
         stage.setScene(new Scene(pane));

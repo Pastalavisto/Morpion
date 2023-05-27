@@ -1,4 +1,4 @@
-package controller;
+package controllers;
 
 import app.Application;
 import javafx.event.ActionEvent;
@@ -12,7 +12,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import model.*;
+import models.Morpion;
+import models.ParametresPartie;
+import models.SceneController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -50,16 +52,17 @@ public class ParametresController implements Initializable {
             model.getJoueur(i).setNom(nom);
         }
         model.setTaille(taille);
-        Case.setTailleCase((int) (Screen.getPrimary().getBounds().getHeight() / (taille * 1.5)));
-        int index = model.ajouterMorpion();
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("morpion.fxml"));
+        int index = model.ajouterMorpion((int) (Screen.getPrimary().getBounds().getHeight() / (taille * 1.5)));
+        Morpion morpion = ParametresPartie.getLastMorpion();
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/view/Morpion.fxml"));
         Stage stage = SceneController.addModalWindow(fxmlLoader.load(), Modality.WINDOW_MODAL, "Morpion numéro " + (index + 1));
         stage.setResizable(false);
-        Morpion morpion = ParametresPartie.getLastMorpion();
+
         stage.setOnCloseRequest(event1 -> {
             ParametresPartie.retirerMorpion(morpion);
         });
         morpion.startIfBot();
+        model.reset();
     }
 
     @FXML
@@ -72,8 +75,8 @@ public class ParametresController implements Initializable {
         MenuItem menuItem = (MenuItem) event.getSource();
         String id = menuItem.getId();
         int indexJoueur = Integer.parseInt(id.substring(id.indexOf("r") + 1));
-        model.setJoueurCourant(model.getJoueur(indexJoueur - 1));
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("choixSymbole.fxml"));
+        ParametresPartie.setJoueurCourant(model.getJoueur(indexJoueur - 1));
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/view/ChoixSymbole.fxml"));
         Stage stage = SceneController.addModalWindow(fxmlLoader.load(), Modality.APPLICATION_MODAL, "Choix du symbole");
         stage.setResizable(false);
     }
@@ -138,8 +141,7 @@ public class ParametresController implements Initializable {
 
     @FXML
     void setPremierJoueur(ActionEvent event) {
-        if (event.getSource() instanceof RadioMenuItem) {
-            RadioMenuItem radioMenuItem  = (RadioMenuItem) event.getSource();
+        if (event.getSource() instanceof RadioMenuItem radioMenuItem) {
             String id = radioMenuItem.getId();
             int indexJoueur = Integer.parseInt(id.substring(id.indexOf("r") + 1));
             if (radioMenuItem.isSelected()) {
@@ -154,7 +156,7 @@ public class ParametresController implements Initializable {
             }
             model.setIndexPremierJoueurAlea(false);
             aleatoire.setSelected(false);
-        } else{
+        } else {
             aleatoire.setSelected(true);
             for (int i = 0; i < flowPaneJoueur.getChildren().size(); i++) {
                 VBox vbox = (VBox) flowPaneJoueur.getChildren().get(i);
@@ -201,6 +203,21 @@ public class ParametresController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        model = ParametresPartie.getInstance();
+        model = ParametresPartie.getInstance(this);
+    }
+
+    public void reset() {
+        for (int i = 0; i < flowPaneJoueur.getChildren().size(); i++) {
+            VBox vbox = (VBox) flowPaneJoueur.getChildren().get(i);
+            MenuButton button = (MenuButton) vbox.getChildren().get(1);
+            RadioMenuItem radioMenuItem2 = (RadioMenuItem) button.getItems().get(3);
+            radioMenuItem2.setSelected(false);
+            CheckMenuItem checkMenuItem = (CheckMenuItem) button.getItems().get(1);
+            checkMenuItem.setSelected(false);
+            TextField textField = (TextField) vbox.getChildren().get(0);
+            textField.setText("Joueur " + (i + 1));
+            model.setIndexPremierJoueur(0);
+            aleatoire.setSelected(false);
+        }
     }
 }

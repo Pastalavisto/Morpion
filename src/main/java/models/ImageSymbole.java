@@ -1,4 +1,4 @@
-package model;
+package models;
 
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -16,10 +16,10 @@ public class ImageSymbole implements Symbole {
     }
 
     @Override
-    public void setSymbole(Button button) {
+    public void setSymbole(Button button, int taille) {
         ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(Case.TAILLE_CASE - 20);
-        imageView.setFitWidth(Case.TAILLE_CASE - 20);
+        imageView.setFitHeight(taille - 20);
+        imageView.setFitWidth(taille - 20);
         button.setGraphic(imageView);
     }
 
