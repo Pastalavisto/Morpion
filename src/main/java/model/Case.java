@@ -1,27 +1,32 @@
 package model;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
+import javafx.stage.Screen;
+
+import java.io.IOException;
 
 public class Case {
-    public static final int TAILLE_CASE = 100;
-    private int x;
-    private int y;
+    public static int TAILLE_CASE = (int)Screen.getPrimary().getBounds().getHeight() / 10;
+    private Coord coord;
     private Joueur joueur;
-
     private Morpion morpion;
     private Button button;
     public Case(int x, int y, Morpion morpion) {
-        this.x = x;
-        this.y = y;
+        coord = new Coord(x, y);
         this.morpion = morpion;
     }
 
     int getX() {
-        return x;
+        return coord.getX();
     }
 
     int getY() {
-        return y;
+        return coord.getY();
+    }
+
+    public static void setTailleCase(int tailleCase) {
+        TAILLE_CASE = tailleCase;
     }
 
     Joueur getJoueur() {
@@ -42,7 +47,11 @@ public class Case {
         button = new Button();
         button.setPrefSize(TAILLE_CASE, TAILLE_CASE);
         button.setOnAction(event -> {
-            morpion.jouer(x,y);
+            try {
+                morpion.jouer(coord);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
         return button;
     }
@@ -52,4 +61,7 @@ public class Case {
     }
 
 
+    public void griser() {
+        button.setDisable(true);
+    }
 }

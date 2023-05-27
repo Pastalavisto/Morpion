@@ -4,13 +4,15 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
 public class SceneController {
     private static Window window;
-    public static void changeScene(Scene scene) {
+    public static void changeScene(Scene scene, String nom) {
         Stage stage = (Stage) window;
         stage.setScene(scene);
+        stage.setTitle(nom);
     }
 
     public static void setWindow(Window window) {
@@ -22,8 +24,10 @@ public class SceneController {
         stage.initModality(modality);
         stage.setScene(new Scene(pane));
         stage.setTitle(nom);
+
         stage.show();
         return stage;
     }
+
 
 }

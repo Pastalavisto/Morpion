@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FinDePartieController">
+   <children>
+      <Button layoutX="162.0" layoutY="175.0" mnemonicParsing="false" onAction="#rejouer" text="Rejouer" />
+      <Button layoutX="383.0" layoutY="175.0" mnemonicParsing="false" onAction="#close" text="Quitter" />
+      <ScrollPane layoutX="23.0" layoutY="68.0" prefHeight="82.0" prefWidth="556.0">
+         <content>
+            <FlowPane fx:id="flowPaneJoueur" hgap="10.0" prefHeight="72.0" prefWidth="544.0" />
+         </content>
+      </ScrollPane>
+      <Label alignment="CENTER" layoutX="191.0" layoutY="14.0" prefHeight="50.0" prefWidth="220.0" text="Scores">
+         <font>
+            <Font name="System Bold Italic" size="34.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

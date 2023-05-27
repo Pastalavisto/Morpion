@@ -11,7 +11,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.GestionMorpions;
+import model.ParametresPartie;
 import model.Morpion;
 import model.SceneController;
 
@@ -25,7 +25,7 @@ public class MorpionController implements Initializable {
     private BorderPane borderPane;
 
     @FXML
-    private Label nomJoueurLabel;
+    private FlowPane flowPaneJoueur;
 
     private Morpion model;
 
@@ -38,15 +38,25 @@ public class MorpionController implements Initializable {
     @FXML
     private MenuItem menuItemRegles;
 
+    @FXML
+    private Label labelResultat;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-        model = GestionMorpions.getLastMorpion();
-        nomJoueurLabel.setText("Joueur : " + model.getJoueurCourant().getNom());
+        model = ParametresPartie.getLastMorpion();
+        model.setMorpionController(this);
+        model.setFlowPaneJoueur(flowPaneJoueur);
+        model.setLabelResultat(labelResultat);
         GridPane gridPane = model.getGridPane();
         gridPane.setAlignment(Pos.CENTER);
         borderPane.setCenter(gridPane);
-        model.setNomJoueurLabel(nomJoueurLabel);
-        menuItemReset.setOnAction(event -> reset(event));
+        menuItemReset.setOnAction(event -> {
+            try {
+                reset(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         menuItemClose.setOnAction(event -> close(event));
         menuItemRegles.setOnAction(event -> {
             try {
@@ -59,25 +69,30 @@ public class MorpionController implements Initializable {
 
     @FXML
     void close(ActionEvent event) {
+        close();
+    }
+
+    public void close(){
         Stage stage = (Stage) borderPane.getScene().getWindow();
-        GestionMorpions.retirerMorpion(model);
+        ParametresPartie.retirerMorpion(model);
         stage.close();
     }
 
     @FXML
-    void reset(ActionEvent event) {
-        System.out.println("reset");
+    void reset(ActionEvent event) throws IOException {
+        reset();
+    }
+
+    public void reset() throws IOException {
         model.reset();
-        nomJoueurLabel.setText("Joueur : " + model.getJoueurCourant().getNom());
         GridPane gridPane = model.getGridPane();
-        gridPane.setAlignment(Pos.CENTER);
         borderPane.setCenter(gridPane);
-        model.setNomJoueurLabel(nomJoueurLabel);
+        gridPane.setAlignment(Pos.CENTER);
+        model.startIfBot();
     }
 
     @FXML
     void rules(ActionEvent event) throws IOException {
-        System.out.println("rules");
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("regles.fxml"));
         SceneController.addModalWindow(fxmlLoader.load(), Modality.APPLICATION_MODAL , "Règles du jeu");
 

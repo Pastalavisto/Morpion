@@ -42,6 +42,8 @@ public class ChoixSymboleController implements Initializable {
     private ChoixSymbole model;
     private ChoixSymbole ancienModel;
 
+    private static final int TAILLE_IMAGE = 100;
+
     @FXML
     void ajouterImagePane(ActionEvent event) {
         Button button = (Button) event.getSource();
@@ -93,12 +95,12 @@ public class ChoixSymboleController implements Initializable {
 
     private void ajouterImagePane(String path) {
         Button button = new Button();
-        button.setPrefSize(Case.TAILLE_CASE, Case.TAILLE_CASE);
+        button.setPrefSize(TAILLE_IMAGE, TAILLE_IMAGE);
         button.setOnAction(event -> selectImagePane(button));
         Image image = new Image(path);
         ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(Case.TAILLE_CASE);
-        imageView.setFitWidth(Case.TAILLE_CASE);
+        imageView.setFitHeight(TAILLE_IMAGE);
+        imageView.setFitWidth(TAILLE_IMAGE);
         button.setGraphic(imageView);
         flowPaneImage.getChildren().add(button);
         images.add(imageView);
@@ -121,11 +123,11 @@ public class ChoixSymboleController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        model = GestionMorpions.getJoueurCourant().getModel();
+        model = ParametresPartie.getInstance().getJoueurCourant().getModel();
         ancienModel = new ChoixSymbole(model);
         for (ImageView imageView : images) {
             Button button = new Button();
-            button.setPrefSize(Case.TAILLE_CASE, Case.TAILLE_CASE);
+            button.setPrefSize(TAILLE_IMAGE, TAILLE_IMAGE);
             button.setOnAction(event -> selectImagePane(button));
             button.setGraphic(imageView);
             flowPaneImage.getChildren().add(button);
@@ -152,8 +154,8 @@ public class ChoixSymboleController implements Initializable {
         for (File file : files) {
             Image image = new Image(file.toURI().toString());
             ImageView imageView = new ImageView(image);
-            imageView.setFitHeight(Case.TAILLE_CASE);
-            imageView.setFitWidth(Case.TAILLE_CASE);
+            imageView.setFitHeight(TAILLE_IMAGE);
+            imageView.setFitWidth(TAILLE_IMAGE);
             images.add(imageView);
         }
     }

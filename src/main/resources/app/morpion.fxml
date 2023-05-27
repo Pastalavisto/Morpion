@@ -4,14 +4,16 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MorpionController">
    <top>
-      <VBox alignment="TOP_CENTER" prefHeight="76.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="150.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <MenuBar>
               <menus>
@@ -33,7 +35,11 @@
                   <Font name="System Bold Italic" size="36.0" />
                </font>
             </Label>
-            <Label fx:id="nomJoueurLabel" />
+            <ScrollPane prefHeight="96.0" prefWidth="600.0">
+               <content>
+                  <FlowPane fx:id="flowPaneJoueur" prefHeight="70.0" prefWidth="725.0" />
+               </content>
+            </ScrollPane>
          </children>
       </VBox>
    </top>
@@ -44,6 +50,10 @@
       <Pane prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
    </right>
    <bottom>
-      <Pane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <Label fx:id="labelResultat" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Bauhaus 93" size="30.0" />
+         </font>
+      </Label>
    </bottom>
 </BorderPane>
