@@ -52,7 +52,7 @@ public class ParametresController implements Initializable {
             model.getJoueur(i).setNom(nom);
         }
         model.setTaille(taille);
-        int index = model.ajouterMorpion((int) (Screen.getPrimary().getBounds().getHeight() / (taille * 1.5)));
+        int index = model.ajouterMorpion((int) (Screen.getPrimary().getBounds().getHeight() / (taille * 2)));
         Morpion morpion = ParametresPartie.getLastMorpion();
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/view/Morpion.fxml"));
         Stage stage = SceneController.addModalWindow(fxmlLoader.load(), Modality.WINDOW_MODAL, "Morpion numéro " + (index + 1));
