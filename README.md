@@ -1,46 +1,5 @@
 # Morpion
 
-# Structure de l'application
-
-.
-└── main/
-    ├── java/
-    │   ├── app/
-    │   │   ├── Application.java
-    │   ├── controllers/
-    │   │   ├── ChoixSymboleController.java
-    │   │   ├── FinDePartieController.java
-    │   │   ├── MorpionController.java
-    │   │   ├── ParametresController.java
-    │   │   └── ReglesController.java
-    │   ├── models/
-    │   │   ├── Bot.java (classe abstraite)
-    │   │   ├── BotNiveau1.java
-    │   │   ├── BotNiveau2.java
-    │   │   ├── Case.java
-    │   │   ├── ChoixSymbole.java
-    │   │   ├── Coord.java
-    │   │   ├── FinDePartie.java
-    │   │   ├── ImageSymbole.java
-    │   │   ├── Joueur.java
-    │   │   ├── Morpion.java
-    │   │   ├── NomSymbole.java
-    │   │   ├── ParametresPartie.java
-    │   │   ├── SceneController.java
-    │   │   ├── Symbole.java (interface)
-    │   │   └── TexteSymbole.java
-    │   └── module-info.java
-    └── resources/
-        ├── images/
-        │   └── (toutes les images/gif ajoutés via l'application)
-        └── view/
-            ├── ChoixSymbole.fxml
-            ├── FinDePartie.fxml
-            ├── Morpion.fxml
-            ├── Parametres.fxml
-            └── Regles.fxml
-
-
 # Fonctionnalités
 
 Fonctionnalités obligatoires : 
